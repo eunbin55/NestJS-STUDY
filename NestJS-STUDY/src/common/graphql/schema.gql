@@ -1,0 +1,71 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Board {
+  uId_board: String!
+  title: String!
+  contents: String!
+  date: DateTime!
+  cnt: Float!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Department {
+  uId_department: String!
+  dName: String!
+}
+
+type Member {
+  uId_member: String!
+  mId: String!
+  mPw: Int!
+  mName: String!
+  dName: String!
+}
+
+type Query {
+  boardAll: [Board!]!
+  boardOne(uId_board: String!): Board!
+  memberAll: [Member!]!
+  memberOne(uId_member: String!): Member!
+  departmentAll: [Department!]!
+  departmentOne(uId_department: String!): Department!
+}
+
+type Mutation {
+  createBoard(createBoardInput: CreateBoardInput!): Board!
+  createMember(createMemberInput: CreateMemberInput!): Member!
+  createDepartment(createDepartmentInput: CreateDepartmentInput!): Department!
+}
+
+input CreateBoardInput {
+  """제목"""
+  title: String!
+
+  """내용"""
+  contents: String!
+}
+
+input CreateMemberInput {
+  """로그인 아이디"""
+  mId: String!
+
+  """로그인 비밀번호"""
+  mPw: Int!
+
+  """이름"""
+  mName: String!
+
+  """부서명"""
+  dName: String!
+}
+
+input CreateDepartmentInput {
+  """부서명"""
+  dName: String!
+}
