@@ -21,6 +21,10 @@ export class Board {
   @Field()
   contents: string;
 
+  @Column({ type: 'varchar', length: '50' })
+  @Field()
+  mName: string;
+
   @CreateDateColumn()
   @Field()
   date: Date;

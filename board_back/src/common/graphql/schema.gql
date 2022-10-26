@@ -6,6 +6,7 @@ type Board {
   uId_board: String!
   title: String!
   contents: String!
+  mName: String!
   date: DateTime!
   cnt: Float!
 }
@@ -49,6 +50,9 @@ input CreateBoardInput {
 
   """내용"""
   contents: String!
+
+  """작성자"""
+  mName: String!
 }
 
 input CreateMemberInput {
