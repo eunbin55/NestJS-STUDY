@@ -4,6 +4,7 @@ import {
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
+  Timestamp,
 } from 'typeorm';
 
 @Entity()

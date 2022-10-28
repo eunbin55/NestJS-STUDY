@@ -12,7 +12,6 @@ function Router(props: any) {
             <Navigation />
             <br/>
             <Routes>
-                <Route path="/" element={<Home />} />
                 <Route path="/board" element={<Board />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/test" element={<Test />} />

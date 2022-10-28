@@ -3,6 +3,7 @@ import { MemberService } from './member.service';
 import { Member } from './entities/member.entity';
 import { CreateMemberInput } from './dto/create-member.input';
 import { UpdateMemberInput } from './dto/update-member.input';
+import { LoginInput } from './dto/member.login';
 
 @Resolver(() => Member)
 export class MemberResolver {
@@ -15,6 +16,13 @@ export class MemberResolver {
     return this.memberService.create(createMemberInput);
   }
 
+  @Mutation(() => Member, {name: 'memberCheck'})
+  login(
+    @Args('loginInput') loginInput: LoginInput,
+  ) {
+    return this.memberService.login(loginInput);
+  }
+
   @Query(() => [Member], { name: 'memberAll' })
   findAll() {
     return this.memberService.findAll();
@@ -24,6 +32,8 @@ export class MemberResolver {
   findOne(@Args('uId_member', { type: () => String }) id: string) {
     return this.memberService.findOne(id);
   }
+
+
 
   // @Mutation(() => Member)
   // updateMember(@Args('updateMemberInput') updateMemberInput: UpdateMemberInput) {

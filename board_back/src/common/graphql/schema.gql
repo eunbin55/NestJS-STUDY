@@ -41,6 +41,7 @@ type Query {
 type Mutation {
   createBoard(createBoardInput: CreateBoardInput!): Board!
   createMember(createMemberInput: CreateMemberInput!): Member!
+  memberCheck(loginInput: LoginInput!): Member!
   createDepartment(createDepartmentInput: CreateDepartmentInput!): Department!
 }
 
@@ -67,6 +68,10 @@ input CreateMemberInput {
 
   """부서명"""
   dName: String!
+}
+
+input LoginInput {
+  mId: String
 }
 
 input CreateDepartmentInput {

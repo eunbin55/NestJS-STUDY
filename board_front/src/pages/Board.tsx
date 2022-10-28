@@ -6,6 +6,7 @@ import { BOARD_ALL } from '../graphql/board.gql';
 const Board = () => {
   const {loading, data} = useQuery(BOARD_ALL);
   // console.log(data);
+  
   return (
     <>
       {loading ? (
@@ -13,13 +14,6 @@ const Board = () => {
       ) :  
       
       (
-        data.boardAll.map((item:any) => (
-          <div key={item.uId_board}>
-            {item.title}, {item.mName}, {item.contents}
-          </div>
-        ))
-        )
-      }
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -30,16 +24,20 @@ const Board = () => {
             <th>조회수</th>
           </tr>
         </thead>
-        <tbody>
+      {data.boardAll.map((item:any, index:any) => (
+        <tbody key={item.uId_board}>
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{index + 1}</td>
+            <td>{item.title}</td>
+            <td>{item.mName}</td>
+            <td>{item.date}</td>
+            <td>{item.cnt}</td>
           </tr>
         </tbody>
+      ))}
       </Table>
+      )
+    }
     </>
   )
 }
