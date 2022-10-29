@@ -23,10 +23,10 @@ export class BoardResolver {
     return this.boardService.findOne(uuid);
   }
 
-  // @Mutation(() => Board)
-  // updateBoard(@Args('updateBoardInput') updateBoardInput: UpdateBoardInput) {
-  //   return this.boardService.update(updateBoardInput.id, updateBoardInput);
-  // }
+  @Mutation(() => Board)
+  updateBoard(@Args('updateBoardInput') updateBoardInput: UpdateBoardInput) {
+    return this.boardService.update(updateBoardInput.id, updateBoardInput);
+  }
 
   // @Mutation(() => Board)
   // removeBoard(@Args('id', { type: () => Int }) id: number) {

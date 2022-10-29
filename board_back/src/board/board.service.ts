@@ -26,9 +26,9 @@ export class BoardService {
     return this.boardRepository.findOne(uuid);
   }
 
-  // update(id: number, updateBoardInput: UpdateBoardInput) {
-  //   return `This action updates a #${id} board`;
-  // }
+  update(id: number, updateBoardInput: UpdateBoardInput) {
+    return `This action updates a #${id} board`;
+  }
 
   // remove(id: number) {
   //   return `This action removes a #${id} board`;
