@@ -10,9 +10,9 @@ function Navigation() {
             <li>
                 <Link to="/board">Board</Link>
             </li>
-            <li>
+            {/* <li>
                 <Link to="/test">Test</Link>
-            </li>
+            </li> */}
         </div>
     );
 }

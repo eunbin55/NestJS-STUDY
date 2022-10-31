@@ -1,10 +1,10 @@
 import React from 'react';
+// eslint-disable-next-line no-unused-vars
 import logo from './logo.svg';
 import './App.css';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { client } from './apollo/client';
 import Router from './Router';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (

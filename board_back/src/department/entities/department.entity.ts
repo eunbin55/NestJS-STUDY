@@ -1,18 +1,18 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Member } from 'src/member/entities/member.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/user/entities/user.entity';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 
 @Entity()
 @ObjectType()
 export class Department {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn({ type: 'varchar', length: '7' })
   @Field(() => String)
-  uId_department: string;
+  deptCode: string;
 
   @Column({ type: 'varchar', unique: true })
   @Field(() => String)
-  dName: string;
+  deptName: string;
 
-  @OneToMany(() => Member, (member) => member.department)
-  member: Member[];
+  @OneToMany(() => User, (user) => user.department)
+  user: User[];
 }

@@ -7,5 +7,5 @@ export class CreateBoardInput {
   @Field(() => String, { description: '내용' })
   contents: string;
   @Field(() => String, { description: '작성자' })
-  mName: string;
+  userNum: string;
 }

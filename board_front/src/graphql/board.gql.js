@@ -4,12 +4,13 @@ import { gql } from "@apollo/client";
 export const BOARD_ALL = gql`
 query BoardAll {
     boardAll {
-        uId_board
+        boardNum
         title
-        mName
         contents
+      userNum
         date
         cnt
+      fileNum
     }
 }
 `;

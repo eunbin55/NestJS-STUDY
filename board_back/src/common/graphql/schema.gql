@@ -3,12 +3,13 @@
 # ------------------------------------------------------
 
 type Board {
-  uId_board: String!
+  boardNum: Float!
   title: String!
   contents: String!
-  mName: String!
+  userNum: String!
   date: DateTime!
   cnt: Float!
+  fileNum: Float!
 }
 
 """
@@ -17,32 +18,41 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Department {
-  uId_department: String!
-  dName: String!
+  deptCode: String!
+  deptName: String!
 }
 
-type Member {
-  uId_member: String!
-  mId: String!
-  mPw: Int!
-  mName: String!
-  dName: String!
+type User {
+  userNum: String!
+  userId: String!
+  userPw: Int!
+  userName: String!
+  deptCode: String!
+}
+
+type File {
+  fileNum: Int!
+  fielName: String!
 }
 
 type Query {
   boardAll: [Board!]!
   boardOne(uId_board: String!): Board!
-  memberAll: [Member!]!
-  memberOne(uId_member: String!): Member!
+  userAll: [User!]!
+  userOne(userNum: String!): User!
   departmentAll: [Department!]!
-  departmentOne(uId_department: String!): Department!
+  departmentOne(deptCode: String!): Department!
+  file(id: Int!): File!
 }
 
 type Mutation {
   createBoard(createBoardInput: CreateBoardInput!): Board!
-  createMember(createMemberInput: CreateMemberInput!): Member!
-  memberCheck(loginInput: LoginInput!): Member!
+  createUser(createUserInput: CreateUserInput!): User!
+  userCheck(loginInput: LoginInput!): User!
   createDepartment(createDepartmentInput: CreateDepartmentInput!): Department!
+  createFile(createFileInput: CreateFileInput!): File!
+  updateFile(updateFileInput: UpdateFileInput!): File!
+  removeFile(id: Int!): File!
 }
 
 input CreateBoardInput {
@@ -53,28 +63,45 @@ input CreateBoardInput {
   contents: String!
 
   """작성자"""
-  mName: String!
+  userNum: String!
 }
 
-input CreateMemberInput {
+input CreateUserInput {
+  """사원번호"""
+  userNum: String!
+
   """로그인 아이디"""
-  mId: String!
+  userId: String!
 
   """로그인 비밀번호"""
-  mPw: Int!
+  userPw: Int!
 
   """이름"""
-  mName: String!
+  userName: String!
 
-  """부서명"""
-  dName: String!
+  """부서코드"""
+  deptCode: String!
 }
 
 input LoginInput {
-  mId: String
+  userId: String
 }
 
 input CreateDepartmentInput {
+  """부서코드"""
+  deptCode: String!
+
   """부서명"""
-  dName: String!
+  deptName: String!
+}
+
+input CreateFileInput {
+  fileNum: Int!
+  fielName: String!
+}
+
+input UpdateFileInput {
+  fileNum: Int
+  fielName: String
+  id: Int!
 }
