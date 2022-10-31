@@ -5,35 +5,36 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
 @ObjectType()
-export class Member {
-  @PrimaryGeneratedColumn('uuid')
+export class User {
+  @PrimaryColumn({ type: 'varchar', length: '7' })
   @Field(() => String)
-  uId_member: string;
+  userNum: string;
 
   @Column({ type: 'varchar', length: '255' })
   @Field(() => String)
-  mId: string;
+  userId: string;
 
   @Column({ type: 'int' })
   @Field(() => Int)
-  mPw: number;
+  userPw: number;
 
   @Column({ type: 'varchar', length: '50' })
   @Field()
-  mName: string;
+  userName: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', length: '7' })
   @Field()
-  dName: string;
+  deptCode: string;
 
-  @ManyToOne(() => Department, (department) => department.dName)
-  @JoinColumn({ name: 'uId_department' })
-  department: Department['dName'];
+  @ManyToOne(() => Department, (department) => department.deptName)
+  @JoinColumn({ name: 'deptCode' })
+  department: Department['deptName'];
 
   // @ManyToOne(() => Department)
   // @JoinColumn({ name: 'department_uId' })

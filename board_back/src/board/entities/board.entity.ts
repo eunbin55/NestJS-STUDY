@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
   Timestamp,
 } from 'typeorm';
@@ -10,9 +11,9 @@ import {
 @Entity()
 @ObjectType()
 export class Board {
-  @PrimaryGeneratedColumn('uuid')
-  @Field(() => String)
-  uId_board: string;
+  @PrimaryGeneratedColumn()
+  @Field()
+  boardNum: number;
 
   @Column({ type: 'varchar', length: '255' })
   @Field(() => String)
@@ -22,9 +23,9 @@ export class Board {
   @Field()
   contents: string;
 
-  @Column({ type: 'varchar', length: '50' })
+  @Column({ type: 'varchar', length: '7' })
   @Field()
-  mName: string;
+  userNum: string;
 
   @CreateDateColumn()
   @Field()
@@ -33,4 +34,8 @@ export class Board {
   @Column({ type: 'int', default: 0 })
   @Field()
   cnt: number;
+
+  @Column({ nullable:true, default:0 })
+  @Field()
+  fileNum: number;
 }

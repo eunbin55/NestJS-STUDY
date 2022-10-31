@@ -17,33 +17,33 @@ query BoardAll {
 `;
 
 // 멤버 전체 목록 조회 
-export const MEMBER_ALL = gql`
-query MemberAll {
-    memberAll {
-        uId_member
-        mId
-        mPw
-        mName
-        dName
+export const USER_ALL = gql`
+query UserAll {
+    userAll {
+        userNum
+        userId
+        userPw
+        userName
+        deptName
     }
 }
 `;
 
 // 멤버 아이디(mId) 조회 
-export const MEMBER_CHECK = gql`
-mutation MemberCheck($mId: String!) {
-    memberCheck(mId: $mId) {
-      mId
+export const USER_CHECK = gql`
+mutation UserCheck($userId: String!) {
+    userCheck(userId: $userId) {
+      userId
   }
 }
 `;
 
 const Test = () => {
   const [inputId, setInputId] = useState('');
-  const [login] = useMutation(MEMBER_CHECK, {variables: {inputId}});
+  const [login] = useMutation(USER_CHECK, {variables: {inputId}});
   console.log(inputId);
 
-  function onSubmit(e:any) {
+  function onSubmit(e) {
     e.preventDefault();
     console.log(e.target.inputId.value);
     const loginId = login({ variables: {inputId}});
@@ -52,7 +52,7 @@ const Test = () => {
   }
   // const [
   //   idCheck, {data}
-  // ] = useLazyQuery(MEMBER_ALL);
+  // ] = useLazyQuery(USER_ALL);
   // const searchText = (text: string) => {
   //   console.log(text);
   //   idCheck();

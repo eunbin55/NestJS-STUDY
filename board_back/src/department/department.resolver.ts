@@ -21,7 +21,7 @@ export class DepartmentResolver {
   }
 
   @Query(() => Department, { name: 'departmentOne' })
-  findOne(@Args('uId_department', { type: () => String }) id: string) {
+  findOne(@Args('deptCode', { type: () => String }) id: string) {
     return this.departmentService.findOne(id);
   }
 

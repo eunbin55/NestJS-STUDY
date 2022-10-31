@@ -3,10 +3,10 @@ import { DepartmentService } from './department.service';
 import { DepartmentResolver } from './department.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Department } from './entities/department.entity';
-import { Member } from 'src/member/entities/member.entity';
+import { User } from 'src/user/entities/user.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Department, Member])],
+  imports: [TypeOrmModule.forFeature([Department, User])],
   providers: [DepartmentResolver, DepartmentService],
 })
 export class DepartmentModule {}
