@@ -22,6 +22,12 @@ export class UserService {
   async login({userInputId,userInputPw}: LoginInput) {
     console.log("userInputId>>>>>>>",userInputId);
     const user = await this.userRepository.findOne({userId:userInputId});
+    if (!user) {
+      console.log('존재하지 않는 ID >>>>>',userInputId);  
+    }
+    console.log("user.userPw>>>>>>>",user.userPw);
+    console.log(user.userId)
+    console.log(user.userPw === userInputPw)
     return user.userPw === userInputPw;
   }
 
