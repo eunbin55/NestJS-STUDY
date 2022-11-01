@@ -29,7 +29,7 @@ query UserAll {
 }
 `;
 
-// 멤버 아이디(mId) 조회 
+// 유저 아이디(userId) 조회 
 export const USER_CHECK = gql`
 mutation UserCheck($userId: String!) {
     userCheck(userId: $userId) {

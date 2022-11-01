@@ -19,13 +19,16 @@ export class UserService {
     });
   }
 
-  async login({userId}: LoginInput) {
-    console.log("userId>>>>>>>",userId);
-    const user = await this.userRepository.findOne({userId});
+  async login({userInputId,userInputPw}: LoginInput) {
+    console.log("userInputId>>>>>>>",userInputId);
+    const user = await this.userRepository.findOne({userId:userInputId});
     if (!user) {
-      return console.log('로그인 실패')
-    } 
-      return console.log('로그인 성공')
+      console.log('존재하지 않는 ID >>>>>',userInputId);  
+    }
+    console.log("user.userPw>>>>>>>",user.userPw);
+    console.log(user.userId)
+    console.log(user.userPw === userInputPw)
+    return user.userPw === userInputPw;
   }
 
   findAll() {

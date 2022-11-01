@@ -38,6 +38,7 @@ type File {
 type Query {
   boardAll: [Board!]!
   boardOne(uId_board: String!): Board!
+  userCheck(loginInput: LoginInput!): Boolean!
   userAll: [User!]!
   userOne(userNum: String!): User!
   departmentAll: [Department!]!
@@ -45,11 +46,14 @@ type Query {
   file(id: Int!): File!
 }
 
+input LoginInput {
+  userInputId: String
+  userInputPw: Int
+}
+
 type Mutation {
   createBoard(createBoardInput: CreateBoardInput!): Board!
-  updateBoard(updateBoardInput: UpdateBoardInput!): Board!
   createUser(createUserInput: CreateUserInput!): User!
-  userCheck(loginInput: LoginInput!): User!
   createDepartment(createDepartmentInput: CreateDepartmentInput!): Department!
   createFile(createFileInput: CreateFileInput!): File!
   updateFile(updateFileInput: UpdateFileInput!): File!
@@ -67,18 +71,6 @@ input CreateBoardInput {
   userNum: String!
 }
 
-input UpdateBoardInput {
-  """제목"""
-  title: String
-
-  """내용"""
-  contents: String
-
-  """작성자"""
-  userNum: String
-  id: Int!
-}
-
 input CreateUserInput {
   """사원번호"""
   userNum: String!
@@ -94,10 +86,6 @@ input CreateUserInput {
 
   """부서코드"""
   deptCode: String!
-}
-
-input LoginInput {
-  userId: String
 }
 
 input CreateDepartmentInput {
