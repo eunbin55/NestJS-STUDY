@@ -19,13 +19,10 @@ export class UserService {
     });
   }
 
-  async login({userId}: LoginInput) {
-    console.log("userId>>>>>>>",userId);
-    const user = await this.userRepository.findOne({userId});
-    if (!user) {
-      return console.log('로그인 실패')
-    } 
-      return console.log('로그인 성공')
+  async login({userInputId,userInputPw}: LoginInput) {
+    console.log("userInputId>>>>>>>",userInputId);
+    const user = await this.userRepository.findOne({userId:userInputId});
+    return user.userPw === userInputPw;
   }
 
   findAll() {
