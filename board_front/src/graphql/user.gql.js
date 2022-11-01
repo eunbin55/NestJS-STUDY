@@ -25,7 +25,7 @@ query UserAll {
 
 // 유저 아이디(userId) 조회
 export const USER_CHECK = gql`
-query UserCheck($userInputId:String, $userInputPw:Int){
+query UserCheck($userInputId:String, $userInputPw:String){
     userCheck(loginInput:{
         userInputId:$userInputId
         userInputPw:$userInputPw

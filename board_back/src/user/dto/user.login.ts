@@ -6,8 +6,8 @@ import { MutationOutput } from "./user.output";
 export class LoginInput {
     @Field(() => String, { nullable: true })
     userInputId: string;
-    @Field(() => Int, { nullable: true })
-    userInputPw: number;
+    @Field(() => String, { nullable: true })
+    userInputPw: string;
 }
 
 // @ObjectType()

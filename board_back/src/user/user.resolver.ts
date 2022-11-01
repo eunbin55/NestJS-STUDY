@@ -22,12 +22,6 @@ export class UserResolver {
     return result;
   }
 
-  // @Query(() => Boolean, {name: 'userCheck'})
-  // logina() {
-
-  //   return false;
-  // }
-
   @Query(() => [User], { name: 'userAll' })
   findAll() {
     return this.userService.findAll();

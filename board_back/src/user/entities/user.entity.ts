@@ -20,9 +20,9 @@ export class User {
   @Field(() => String)
   userId: string;
 
-  @Column({ type: 'int' })
-  @Field(() => Int)
-  userPw: number;
+  @Column({ type: 'varchar' })
+  @Field(() => String)
+  userPw: string;
 
   @Column({ type: 'varchar', length: '50' })
   @Field()

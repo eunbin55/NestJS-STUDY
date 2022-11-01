@@ -1,29 +1,35 @@
 import { useQuery } from "@apollo/react-hooks";
 import React, { useState } from "react";
 import { USER_CHECK } from "../graphql/user.gql";
+import Board from "./Board";
+import Home from "./Home";
 
 const Login = () => {
     const [inputId, setInputId] = useState('');
-    const [inputPw, setInputPw] = useState(0);
+    const [inputPw, setInputPw] = useState('');
     
     console.log('inputId',inputId)
     console.log('inputPw',inputPw)
 
+    const { data } = useQuery(USER_CHECK, {
+        variables: { userInputId:inputId, userInputPw:inputPw} ,
+    });
+
+    
     function UserCheck () {
-        setInputId(inputId)
-        setInputPw(inputPw)
-        console.log(inputId)
-        console.log(inputPw)
+        console.log('inputId:'+inputId,'inputPw:'+inputPw)
+        console.log(data)
+        if(data.userCheck === false || null ){
+            console.log('로그인 실패!');
+        }else {
+            console.log('로그인 성공!');
+        }
         
-        const {data} = useQuery(USER_CHECK, {
-            variables: { 
-                userInputId: inputId, userInputPw: inputPw
-            },
-        });
-        alert(data);
-            
-        
+        alert(data.userCheck)
     }
+    
+    
+    // console.log(data)
     
     return (
         <form onSubmit={UserCheck}>
