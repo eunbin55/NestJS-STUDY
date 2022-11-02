@@ -14,3 +14,20 @@ query BoardAll {
     }
 }
 `;
+
+// 게시판 상세 조회
+export const BOARD_ONE = gql`
+query boardOne($boardSetNum:Int) {
+  boardOne (boardOneInput:{
+    boardSetNum:$boardSetNum
+  }){
+  	 boardNum
+    title
+    contents
+    userNum
+    date
+    cnt
+    fileNum
+  }
+}
+`;
