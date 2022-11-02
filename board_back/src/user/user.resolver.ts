@@ -16,17 +16,12 @@ export class UserResolver {
     return this.userService.create(createUserInput);
   }
 
-  @Query(() => Boolean, {name: 'userCheck'})
+  @Mutation(() => Boolean, {name: 'userCheck'})
   login(@Args('loginInput') loginInput: LoginInput) {
     const result = this.userService.login(loginInput);
     return result;
   }
 
-  // @Query(() => Boolean, {name: 'userCheck'})
-  // logina() {
-
-  //   return false;
-  // }
 
   @Query(() => [User], { name: 'userAll' })
   findAll() {

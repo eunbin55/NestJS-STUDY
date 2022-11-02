@@ -25,7 +25,7 @@ type Department {
 type User {
   userNum: String!
   userId: String!
-  userPw: Int!
+  userPw: String!
   userName: String!
   deptCode: String!
 }
@@ -38,7 +38,6 @@ type File {
 type Query {
   boardAll: [Board!]!
   boardOne(uId_board: String!): Board!
-  userCheck(loginInput: LoginInput!): Boolean!
   userAll: [User!]!
   userOne(userNum: String!): User!
   departmentAll: [Department!]!
@@ -46,14 +45,10 @@ type Query {
   file(id: Int!): File!
 }
 
-input LoginInput {
-  userInputId: String
-  userInputPw: Int
-}
-
 type Mutation {
   createBoard(createBoardInput: CreateBoardInput!): Board!
   createUser(createUserInput: CreateUserInput!): User!
+  userCheck(loginInput: LoginInput!): Boolean!
   createDepartment(createDepartmentInput: CreateDepartmentInput!): Department!
   createFile(createFileInput: CreateFileInput!): File!
   updateFile(updateFileInput: UpdateFileInput!): File!
@@ -79,13 +74,18 @@ input CreateUserInput {
   userId: String!
 
   """로그인 비밀번호"""
-  userPw: Int!
+  userPw: String!
 
   """이름"""
   userName: String!
 
   """부서코드"""
   deptCode: String!
+}
+
+input LoginInput {
+  userInputId: String
+  userInputPw: String
 }
 
 input CreateDepartmentInput {

@@ -13,19 +13,10 @@ query UserAll {
 }
 `;
 
-// 유저 아이디(userId) 조회 
-// export const USER_CHECK = gql`
-// query UserCheck{
-//     userCheck(loginInput:{
-//         userId:"dldmsqls"
-//         userPassword:2
-//     })
-// }
-// `;
 
 // 유저 아이디(userId) 조회
 export const USER_CHECK = gql`
-query UserCheck($userInputId:String, $userInputPw:Int){
+mutation UserCheck($userInputId:String, $userInputPw:String){
     userCheck(loginInput:{
         userInputId:$userInputId
         userInputPw:$userInputPw
