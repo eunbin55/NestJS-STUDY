@@ -3,6 +3,7 @@ import { BoardService } from './board.service';
 import { Board } from './entities/board.entity';
 import { CreateBoardInput } from './dto/create-board.input';
 import { UpdateBoardInput } from './dto/update-board.input';
+import { BoardOneInput } from './dto/board-one.input';
 
 @Resolver(() => Board)
 export class BoardResolver {
@@ -19,8 +20,8 @@ export class BoardResolver {
   }
 
   @Query(() => Board, { name: 'boardOne' })
-  findOne(@Args('uId_board', { type: () => String }) uuid: string) {
-    return this.boardService.findOne(uuid);
+  findOne(@Args('boardOneInput') boardOneInput: BoardOneInput) {
+    return this.boardService.findOne(boardOneInput);
   }
 
   // @Mutation(() => Board)

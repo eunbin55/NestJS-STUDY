@@ -37,12 +37,16 @@ type File {
 
 type Query {
   boardAll: [Board!]!
-  boardOne(uId_board: String!): Board!
+  boardOne(boardOneInput: BoardOneInput!): Board!
   userAll: [User!]!
   userOne(userNum: String!): User!
   departmentAll: [Department!]!
   departmentOne(deptCode: String!): Department!
   file(id: Int!): File!
+}
+
+input BoardOneInput {
+  boardSetNum: Int
 }
 
 type Mutation {
