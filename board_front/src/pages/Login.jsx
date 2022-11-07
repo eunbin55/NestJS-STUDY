@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/react-hooks";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { USER_CHECK } from "../graphql/user.gql";
 
@@ -15,13 +15,11 @@ const Login = () => {
   });
 
   async function UserCheck() {
-    const a = await login();
-    console.log(a);
-    console.log("inputId>>>" + inputId + " inputPw>>>" + inputPw);
-    console.log("data======", a.data.userCheck);
+    const loginRun = await login();
+
     setInputId("");
     setInputPw("");
-    if (a.data.userCheck === true) {
+    if (loginRun.data.userCheck === true) {
       alert("로그인 성공!");
       navigate("/board");
     } else {
@@ -30,11 +28,13 @@ const Login = () => {
   }
 
   return (
-    <>
+    <div className="login">
+      <h1>로그인</h1>
       <div>ID</div>
       <input
         type="id"
         placeholder="아이디를 입력하세요"
+        maxLength={20}
         value={inputId}
         onChange={(e) => setInputId(e.target.value)}
       />
@@ -42,13 +42,12 @@ const Login = () => {
       <input
         type="password"
         placeholder="비밀번호를 입력하세요"
+        maxLength={4}
         value={inputPw}
         onChange={(e) => setInputPw(e.target.value)}
       />
-      <button variant="primary" type="submit" onClick={UserCheck}>
-        LOGIN
-      </button>
-    </>
+      <button onClick={UserCheck}>LOGIN</button>
+    </div>
   );
 };
 

@@ -4,6 +4,8 @@ import { Board } from './entities/board.entity';
 import { CreateBoardInput } from './dto/create-board.input';
 import { UpdateBoardInput } from './dto/update-board.input';
 import { BoardOneInput } from './dto/board-one.input';
+import { BoardAllInput } from './dto/board-all.input';
+import { query } from 'express';
 
 @Resolver(() => Board)
 export class BoardResolver {
@@ -14,9 +16,11 @@ export class BoardResolver {
     return this.boardService.create(createBoardInput);
   }
 
+
+
   @Query(() => [Board], { name: 'boardAll' })
-  findAll() {
-    return this.boardService.findAll();
+  findAll(@Args('boardAllInput') boardAllInput: BoardAllInput) {
+    return this.boardService.findAll(boardAllInput);
   }
 
   @Query(() => Board, { name: 'boardOne' })

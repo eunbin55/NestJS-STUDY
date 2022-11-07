@@ -10,13 +10,12 @@ export const BoardTable = (board) => {
     <>
       <tbody key={boardList.boardNum}>
         <tr onClick={() => navigate(`/detail/${boardList.boardNum}`)}>
-          {/* <tr onClick={()=> navigate(<BoardDetail num={boardList.boardNum}/>)}> */}
           <td>{board.index + 1}</td>
           <td>{boardList.title}</td>
           <td>{boardList.userNum}</td>
           <td>{boardList.date}</td>
-          <td>{boardList.cnt}</td>
-          <td>{boardList.fileNum}</td>
+          {/* <td>{boardList.cnt}</td>
+          <td>{boardList.fileNum}</td> */}
         </tr>
       </tbody>
     </>

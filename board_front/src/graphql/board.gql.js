@@ -2,15 +2,16 @@ import { gql } from "@apollo/client";
 
 // 게시판 전체 목록 조회 
 export const BOARD_ALL = gql`
-query BoardAll {
-    boardAll {
-        boardNum
-        title
-        contents
+query boardAll($limit:Int!, $currentPage:Int!) {
+    boardAll (boardAllInput:{
+      limit:$limit
+      currentPage:$currentPage
+    }) {
+      boardNum
+      title
       userNum
-        date
-        cnt
-      fileNum
+      date
+    
     }
 }
 `;

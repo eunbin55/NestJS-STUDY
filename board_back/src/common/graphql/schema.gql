@@ -36,13 +36,18 @@ type File {
 }
 
 type Query {
-  boardAll: [Board!]!
+  boardAll(boardAllInput: BoardAllInput!): [Board!]!
   boardOne(boardOneInput: BoardOneInput!): Board!
   userAll: [User!]!
   userOne(userNum: String!): User!
   departmentAll: [Department!]!
   departmentOne(deptCode: String!): Department!
   file(id: Int!): File!
+}
+
+input BoardAllInput {
+  currentPage: Int!
+  limit: Int!
 }
 
 input BoardOneInput {

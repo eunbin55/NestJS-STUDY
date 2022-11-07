@@ -8,23 +8,41 @@ import { Error } from "../components/Error";
 import { useNavigate } from "react-router-dom";
 
 const Board = () => {
-  const { loading, error, data } = useQuery(BOARD_ALL);
   const [limit, setLimit] = useState(5); //페이지당 게시물 제한 수
-  const [page, setPage] = useState(1);
-  const offset = (page - 1) * limit;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchWord, setSearchWord] = useState("");
+  const offset = (currentPage - 1) * limit; //현재 페이지 전까지의 게시물 수
+
+  const { loading, error, data } = useQuery(BOARD_ALL, {
+    variables: { currentPage: currentPage, limit: limit },
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!loading) {
-      // console.log(data.boardAll);
+      console.log(data);
+      // console.log(data.boardAll.length);
     }
   }, [data, loading]);
 
   if (loading) return <Loading />;
   if (error) return <Error />;
 
+  // console.log("searchWord====", searchWord);
+
+  const Search = () => {
+    //   const title = data.boardAll.filter((item) => {
+    //     console.log("title====", item.title);
+    //     if (setSearchWord === title) {
+    //       console.log("data.boardAll.title===", item.title);
+    //     } else {
+    //       console.log("F");
+    //     }
+    //   });
+  };
+
   return (
-    <>
+    <div className="boardMain">
       <h1>게시판</h1>
       <div>
         {/* 페이지 당 표시할 게시물 수 */}
@@ -41,19 +59,24 @@ const Board = () => {
         </div>
         {/* 검색 */}
         <div className="search">
-          <input placeholder="검색어를 입력하세요" />
-          <button>검색</button>
+          <input
+            type="text"
+            value={searchWord}
+            placeholder="검색어를 입력하세요"
+            onChange={(e) => setSearchWord(e.target.value)}
+          />
+          <button onClick={Search}>검색</button>
         </div>
         {/* 게시글 목록 */}
-        <table>
+        <table className="boardList">
           <thead>
             <tr>
               <th>번호</th>
               <th>제목</th>
               <th>작성자</th>
               <th>작성일</th>
-              <th>조회수</th>
-              <th>첨부파일</th>
+              {/* <th>조회수</th>
+              <th>첨부파일</th> */}
             </tr>
           </thead>
 
@@ -65,14 +88,15 @@ const Board = () => {
         </table>
         {/* 페이지네이션 */}
         <Pagenation
-          total={data.boardAll.length}
+          // total={data.boardAll.length}
+          total={20}
           limit={limit}
-          page={page}
-          setPage={setPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
         />
         <button onClick={() => navigate("/boardCreate")}>글작성</button>
       </div>
-    </>
+    </div>
   );
 };
 
