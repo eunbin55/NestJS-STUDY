@@ -4,6 +4,7 @@ import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 // import { UpdateUserInput } from './dto/update-user.input';
 import { LoginInput } from './dto/user.login';
+import { UserOneInput } from './dto/user-one.input';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -29,8 +30,8 @@ export class UserResolver {
   }
 
   @Query(() => User, { name: 'userOne' })
-  findOne(@Args('userNum', { type: () => String }) id: string) {
-    return this.userService.findOne(id);
+  findOne(@Args('userOneInput') userOneInput: UserOneInput) {
+    return this.userService.findOne(userOneInput);
   }
 
 

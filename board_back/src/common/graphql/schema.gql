@@ -36,26 +36,31 @@ type File {
 }
 
 type Query {
-  boardAll(boardAllInput: BoardAllInput!): [Board!]!
   boardOne(boardOneInput: BoardOneInput!): Board!
+  boardAll(boardAllInput: BoardAllInput!): [Board!]!
   userAll: [User!]!
-  userOne(userNum: String!): User!
+  userOne(userOneInput: UserOneInput!): User!
   departmentAll: [Department!]!
   departmentOne(deptCode: String!): Department!
   file(id: Int!): File!
-}
-
-input BoardAllInput {
-  currentPage: Int!
-  limit: Int!
 }
 
 input BoardOneInput {
   boardSetNum: Int
 }
 
+input BoardAllInput {
+  currentPage: Int
+  limit: Int!
+}
+
+input UserOneInput {
+  userId: String
+}
+
 type Mutation {
   createBoard(createBoardInput: CreateBoardInput!): Board!
+  boardDelete(boardOneInput: BoardOneInput!): String!
   createUser(createUserInput: CreateUserInput!): User!
   userCheck(loginInput: LoginInput!): Boolean!
   createDepartment(createDepartmentInput: CreateDepartmentInput!): Department!

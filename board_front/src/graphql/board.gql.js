@@ -27,8 +27,6 @@ query boardOne($boardSetNum:Int) {
     contents
     userNum
     date
-    cnt
-    fileNum
   }
 }
 `;
@@ -46,8 +44,15 @@ mutation boardAdd($title:String!, $contents:String!, $userNum:String!) {
     contents
     userNum
     date
-    cnt
-    fileNum
   }
+}
+`;
+
+// 게시글 삭제
+export const BOARD_DELETE = gql`
+mutation($boardSetNum:Int!) {
+  boardDelete(boardOneInput:{
+    boardSetNum:$boardSetNum
+  })
 }
 `;

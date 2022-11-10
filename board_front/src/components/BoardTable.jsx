@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom";
 export const BoardTable = (board) => {
   const navigate = useNavigate();
   const boardList = board.board;
-  //   console.log("board===========", board);
-  //   console.log("board.board===========", board.board);
+  const formatDate = new Date(boardList.date);
   return (
     <>
       <tbody key={boardList.boardNum}>
@@ -13,7 +12,7 @@ export const BoardTable = (board) => {
           <td>{board.index + 1}</td>
           <td>{boardList.title}</td>
           <td>{boardList.userNum}</td>
-          <td>{boardList.date}</td>
+          <td>{formatDate.toLocaleString()}</td>
           {/* <td>{boardList.cnt}</td>
           <td>{boardList.fileNum}</td> */}
         </tr>

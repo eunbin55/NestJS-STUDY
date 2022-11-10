@@ -4,7 +4,6 @@ import { BoardDetail } from "./components/BoardDetail";
 import Navigation from "./components/Navigation";
 import Board from "./pages/Board";
 import { BoardCreate } from "./pages/BoardCreate";
-import Home from "./pages/Home";
 import Login from "./pages/Login";
 // import Test from "./pages/Test";
 

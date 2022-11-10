@@ -7,6 +7,7 @@ const Login = () => {
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
 
+  const sessionStorage = window.sessionStorage;
   const navigate = useNavigate();
   // console.log('inputId',inputId)
   // console.log('inputPw',inputPw)
@@ -20,13 +21,19 @@ const Login = () => {
     setInputId("");
     setInputPw("");
     if (loginRun.data.userCheck === true) {
+      sessionStorage.setItem("inputId", inputId);
+      console.log(JSON.stringify(sessionStorage));
       alert("로그인 성공!");
       navigate("/board");
     } else {
       alert("아이디 또는 비밀번호를 확인하세요");
     }
   }
-
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      UserCheck();
+    }
+  };
   return (
     <div className="login">
       <h1>로그인</h1>
@@ -36,6 +43,7 @@ const Login = () => {
         placeholder="아이디를 입력하세요"
         maxLength={20}
         value={inputId}
+        onKeyPress={onKeyPress}
         onChange={(e) => setInputId(e.target.value)}
       />
       <div>Password</div>
@@ -44,6 +52,7 @@ const Login = () => {
         placeholder="비밀번호를 입력하세요"
         maxLength={4}
         value={inputPw}
+        onKeyPress={onKeyPress}
         onChange={(e) => setInputPw(e.target.value)}
       />
       <button onClick={UserCheck}>LOGIN</button>

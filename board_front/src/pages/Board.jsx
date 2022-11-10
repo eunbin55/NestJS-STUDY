@@ -5,7 +5,8 @@ import { Pagenation } from "../components/Pagenation";
 import { BoardTable } from "../components/BoardTable";
 import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { BoardCreate } from "./BoardCreate";
 
 const Board = () => {
   const [limit, setLimit] = useState(5); //페이지당 게시물 제한 수
@@ -40,9 +41,14 @@ const Board = () => {
     //     }
     //   });
   };
-
+  const Logout = () => {
+    sessionStorage.clear();
+    console.log("로그아웃sessionStorage===", sessionStorage);
+    navigate("/login");
+  };
   return (
     <div className="boardMain">
+      <button onClick={Logout}>로그아웃</button>
       <h1>게시판</h1>
       <div>
         {/* 페이지 당 표시할 게시물 수 */}
@@ -88,8 +94,8 @@ const Board = () => {
         </table>
         {/* 페이지네이션 */}
         <Pagenation
-          // total={data.boardAll.length}
-          total={20}
+          total={data.boardAll.length}
+          // total={totalCount}
           limit={limit}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}

@@ -4,8 +4,10 @@ import { Board } from './entities/board.entity';
 import { CreateBoardInput } from './dto/create-board.input';
 import { UpdateBoardInput } from './dto/update-board.input';
 import { BoardOneInput } from './dto/board-one.input';
-import { BoardAllInput } from './dto/board-all.input';
 import { query } from 'express';
+import { BoardOutput } from './dto/board.output';
+import { BoardAllCount } from './dto/board-count.output';
+import { BoardAllInput } from './dto/board-all.input';
 
 @Resolver(() => Board)
 export class BoardResolver {
@@ -16,25 +18,30 @@ export class BoardResolver {
     return this.boardService.create(createBoardInput);
   }
 
-
+  @Query(() => Board, { name: 'boardOne' })
+  findOne(@Args('boardOneInput') boardOneInput: BoardOneInput) {
+    return this.boardService.findOne(boardOneInput);
+  }
 
   @Query(() => [Board], { name: 'boardAll' })
   findAll(@Args('boardAllInput') boardAllInput: BoardAllInput) {
     return this.boardService.findAll(boardAllInput);
   }
-
-  @Query(() => Board, { name: 'boardOne' })
-  findOne(@Args('boardOneInput') boardOneInput: BoardOneInput) {
-    return this.boardService.findOne(boardOneInput);
-  }
+  
+  // @Query(() => BoardOutput, { name: 'boardAll' })
+  // findAndCount(@Args('boardAllInput') boardOutput: BoardOutput): Promise<BoardOutput> {
+    
+  //   return this.boardService.findAndCount(boardOutput);
+  // }
+  
 
   // @Mutation(() => Board)
   // updateBoard(@Args('updateBoardInput') updateBoardInput: UpdateBoardInput) {
   //   return this.boardService.update(updateBoardInput.id, updateBoardInput);
   // }
 
-  // @Mutation(() => Board)
-  // removeBoard(@Args('id', { type: () => Int }) id: number) {
-  //   return this.boardService.remove(id);
-  // }
+  @Mutation(() => String, {name: 'boardDelete'})
+  deleteBoard(@Args('boardOneInput') boardOneInput: BoardOneInput) {
+    return this.boardService.delete(boardOneInput);
+  }
 }
