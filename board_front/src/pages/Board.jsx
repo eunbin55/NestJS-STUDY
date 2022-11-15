@@ -5,8 +5,7 @@ import { Pagenation } from "../components/Pagenation";
 import { BoardTable } from "../components/BoardTable";
 import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
-import { useNavigate, useParams } from "react-router-dom";
-import { BoardCreate } from "./BoardCreate";
+import { useNavigate } from "react-router-dom";
 
 const Board = () => {
   const [limit, setLimit] = useState(5); //페이지당 게시물 제한 수
@@ -21,7 +20,7 @@ const Board = () => {
 
   useEffect(() => {
     if (!loading) {
-      console.log(data);
+      // console.log(data);
       // console.log(data.boardAll.length);
     }
   }, [data, loading]);
@@ -46,6 +45,7 @@ const Board = () => {
     console.log("로그아웃sessionStorage===", sessionStorage);
     navigate("/login");
   };
+
   return (
     <div className="boardMain">
       <button onClick={Logout}>로그아웃</button>
@@ -74,15 +74,13 @@ const Board = () => {
           <button onClick={Search}>검색</button>
         </div>
         {/* 게시글 목록 */}
-        <table className="boardList">
+        <table>
           <thead>
             <tr>
               <th>번호</th>
               <th>제목</th>
               <th>작성자</th>
               <th>작성일</th>
-              {/* <th>조회수</th>
-              <th>첨부파일</th> */}
             </tr>
           </thead>
 

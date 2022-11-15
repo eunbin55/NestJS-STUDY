@@ -1,8 +1,12 @@
 import { ObjectType, Field } from '@nestjs/graphql';
+import { Department } from 'src/department/entities/department.entity';
+import { User } from 'src/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryColumn,
   PrimaryGeneratedColumn,
   Timestamp,
@@ -23,9 +27,20 @@ export class Board {
   @Field()
   contents: string;
 
-  @Column({ type: 'varchar', length: '7' })
+  @Column({ type: 'varchar', length: '7', name: 'userNum' })
   @Field()
   userNum: string;
+
+  @ManyToOne(() => User, {
+    cascade:true
+  })
+  @JoinColumn([{ name: 'userNum' },{name:'deptCode'}])
+  @Field()
+  user: User;
+
+  @JoinColumn([{name:'deptCode'}])
+  @Field()
+  department: User;
 
   @CreateDateColumn()
   @Field()

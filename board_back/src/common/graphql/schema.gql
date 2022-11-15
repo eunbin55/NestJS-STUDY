@@ -2,21 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Board {
-  boardNum: Float!
-  title: String!
-  contents: String!
-  userNum: String!
-  date: DateTime!
-  cnt: Float!
-  fileNum: Float!
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type Department {
   deptCode: String!
   deptName: String!
@@ -27,8 +12,25 @@ type User {
   userId: String!
   userPw: String!
   userName: String!
-  deptCode: String!
+  department: Department!
 }
+
+type Board {
+  boardNum: Float!
+  title: String!
+  contents: String!
+  userNum: String!
+  user: User!
+  department: User!
+  date: DateTime!
+  cnt: Float!
+  fileNum: Float!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type File {
   fileNum: Int!
@@ -38,6 +40,7 @@ type File {
 type Query {
   boardOne(boardOneInput: BoardOneInput!): Board!
   boardAll(boardAllInput: BoardAllInput!): [Board!]!
+  search(search: String!): String!
   userAll: [User!]!
   userOne(userOneInput: UserOneInput!): User!
   departmentAll: [Department!]!
@@ -60,6 +63,7 @@ input UserOneInput {
 
 type Mutation {
   createBoard(createBoardInput: CreateBoardInput!): Board!
+  boardUpdate(boardUpdate: UpdateBoard!): String!
   boardDelete(boardOneInput: BoardOneInput!): String!
   createUser(createUserInput: CreateUserInput!): User!
   userCheck(loginInput: LoginInput!): Boolean!
@@ -78,6 +82,22 @@ input CreateBoardInput {
 
   """작성자"""
   userNum: String!
+}
+
+input UpdateBoard {
+  data: UpdateBoardInput!
+  boardSetNum: Int!
+}
+
+input UpdateBoardInput {
+  """제목"""
+  title: String
+
+  """내용"""
+  contents: String
+
+  """작성자"""
+  userNum: String
 }
 
 input CreateUserInput {

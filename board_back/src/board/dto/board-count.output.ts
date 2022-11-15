@@ -1,7 +1,7 @@
 import { ArgsType, Field, InputType, Int, ObjectType } from "@nestjs/graphql";
 import { Column, PrimaryColumn } from "typeorm";
 
-@ObjectType()
+@InputType()
 export class BoardAllCount {
   @Field(() => Int)
   totalCount: number;

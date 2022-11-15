@@ -29,14 +29,15 @@ export class User {
   userName: string;
 
   @Column({ type: 'varchar', length: '7' })
-  @Field()
+  // @Field()
   deptCode: string;
 
-  @ManyToOne(() => Department, (department) => department.deptName)
+  @ManyToOne(() => Department)
   @JoinColumn({ name: 'deptCode' })
-  department: Department['deptName'];
-
-  // @ManyToOne(() => Department)
-  // @JoinColumn({ name: 'department_uId' })
-  // department: Department;
+    @Field()
+  department: Department;
+  
+  // @ManyToOne(() => Department, (department) => department.deptName)
+  // @JoinColumn({ name: 'deptCode' })
+  // department: Department['deptName'];
 }

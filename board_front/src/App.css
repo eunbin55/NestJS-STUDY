@@ -18,8 +18,8 @@
   left: 30%;
 }
 
-.boardList {
-  
+.boardMain .boardData {
+  text-align: left;
 }
 
 
@@ -40,10 +40,6 @@
 }
 
 .boardOneData > div {
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-.boardOneData > p {
-  border: 1px solid black;
-  padding-bottom: 15px;
-}

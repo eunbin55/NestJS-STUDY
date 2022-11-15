@@ -8,7 +8,10 @@ query userOne($userId:String) {
   }){
     userNum
     userName
-    deptCode
+    department{
+      deptCode
+      deptName
+    }
   }
 }
 `;

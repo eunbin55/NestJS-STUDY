@@ -14,5 +14,5 @@ export class Department {
   deptName: string;
 
   @OneToMany(() => User, (user) => user.department)
-  user: User[];
+  user: User;
 }

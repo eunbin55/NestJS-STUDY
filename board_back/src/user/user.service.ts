@@ -38,10 +38,12 @@ export class UserService {
     return this.userRepository.find();
   }
 
-  findOne({userId}: UserOneInput) {
-    return this.userRepository.findOne({userId:userId
-      // relations: ['department'],
-    });
+  async findOne({userId}: UserOneInput) {
+     const user = await this.userRepository.findOne({
+      userId: userId
+     }, { relations: ['department'] });
+    console.log(user)
+    return user;
   }
 
   // update(id: number, updateUserInput: UpdateUserInput) {

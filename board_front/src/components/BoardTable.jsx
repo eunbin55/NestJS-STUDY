@@ -7,11 +7,11 @@ export const BoardTable = (board) => {
   const formatDate = new Date(boardList.date);
   return (
     <>
-      <tbody key={boardList.boardNum}>
+      <tbody className="boardData" key={boardList.boardNum}>
         <tr onClick={() => navigate(`/detail/${boardList.boardNum}`)}>
           <td>{board.index + 1}</td>
           <td>{boardList.title}</td>
-          <td>{boardList.userNum}</td>
+          <td>{boardList.user.userName}</td>
           <td>{formatDate.toLocaleString()}</td>
           {/* <td>{boardList.cnt}</td>
           <td>{boardList.fileNum}</td> */}

@@ -2,13 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { type } from 'os';
 import { skip, take } from 'rxjs';
-import { Entity, FindManyOptions, FindOneOptions, FindOptionsUtils, Repository } from 'typeorm';
+import { Department } from 'src/department/entities/department.entity';
+import { User } from 'src/user/entities/user.entity';
+import { Entity, FindManyOptions, FindOneOptions, FindOptionsUtils, Like, Repository } from 'typeorm';
 import { BoardAllInput } from './dto/board-all.input';
 import { BoardAllCount } from './dto/board-count.output';
 import { BoardOneInput } from './dto/board-one.input';
 import { BoardOutput } from './dto/board.output';
 import { CreateBoardInput } from './dto/create-board.input';
-import { UpdateBoardInput } from './dto/update-board.input';
+import { UpdateBoard } from './dto/update-board.input';
 import { Board } from './entities/board.entity';
 
 @Injectable()
@@ -40,9 +42,8 @@ export class BoardService {
     const boardReqData = await this.boardRepository.find({
       skip: (limit * (currentPage - 1)),
       take: limit,
-      order: {date :'DESC'}
-       
-    });
+      order: {date :'DESC'} 
+    , relations: ['user']});
     const totalCount = await this.boardRepository.count();
       
     console.log('boardReqData====', boardReqData);
@@ -61,20 +62,35 @@ export class BoardService {
   //     // console.log('boardReqData====', boardReqData);
   //   // console.log('totalCount===', totalCount);
   //   // console.log(currentPage);
-  //   return new BoardOutput(boardOutput);
+  //   return new BoardOutput;
   //   // return [boardReqData, totalCount];
   //   // return {currentPage, limit, totalCount};
 
   // }
 
   async findOne({boardSetNum}: BoardOneInput) {
-    const boardOne = await this.boardRepository.findOne({boardNum:boardSetNum});
+    const boardOne = await this.boardRepository.findOne({ boardNum: boardSetNum }, {relations:['user']});
+    console.log(boardOne);
     return boardOne
   }
 
-  // update(id: number, updateBoardInput: UpdateBoardInput) {
-  //   return `This action updates a #${id} board`;
-  // }
+  async search(searchWoard) {
+    const result = await this.boardRepository.find({
+      where: { title: Like(`%${searchWoard}%`) }
+    });
+    console.log('result===========',result)
+    return result;
+  }
+
+  async update({ boardSetNum, data }: UpdateBoard) {
+    const updateResult = await this.boardRepository.update(boardSetNum, { ...data, date: Date().toLocaleString()});
+    console.log('updateResult====', updateResult)
+    if (updateResult.affected === 1) {
+      return `boardNum: ${boardSetNum} 수정 성공`;
+    }else {
+      return '수정 실패';
+    }
+  }
 
   async delete({ boardSetNum }: BoardOneInput) {
     const result = await this.boardRepository.delete({ boardNum: boardSetNum });

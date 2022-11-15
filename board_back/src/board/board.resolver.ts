@@ -2,7 +2,7 @@ import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { BoardService } from './board.service';
 import { Board } from './entities/board.entity';
 import { CreateBoardInput } from './dto/create-board.input';
-import { UpdateBoardInput } from './dto/update-board.input';
+import { UpdateBoard, UpdateBoardInput } from './dto/update-board.input';
 import { BoardOneInput } from './dto/board-one.input';
 import { query } from 'express';
 import { BoardOutput } from './dto/board.output';
@@ -28,6 +28,11 @@ export class BoardResolver {
     return this.boardService.findAll(boardAllInput);
   }
   
+  @Query(() => String)
+  search(@Args('search') searchWoard: string) {
+    return this.boardService.search(searchWoard);
+  }
+
   // @Query(() => BoardOutput, { name: 'boardAll' })
   // findAndCount(@Args('boardAllInput') boardOutput: BoardOutput): Promise<BoardOutput> {
     
@@ -35,10 +40,10 @@ export class BoardResolver {
   // }
   
 
-  // @Mutation(() => Board)
-  // updateBoard(@Args('updateBoardInput') updateBoardInput: UpdateBoardInput) {
-  //   return this.boardService.update(updateBoardInput.id, updateBoardInput);
-  // }
+  @Mutation(() => String, { name: 'boardUpdate' })
+  async updateBoard(@Args('boardUpdate') updateBoard: UpdateBoard) {
+    return await this.boardService.update(updateBoard);
+  }    
 
   @Mutation(() => String, {name: 'boardDelete'})
   deleteBoard(@Args('boardOneInput') boardOneInput: BoardOneInput) {

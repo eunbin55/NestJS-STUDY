@@ -9,9 +9,11 @@ query boardAll($limit:Int!, $currentPage:Int!) {
     }) {
       boardNum
       title
-      userNum
       date
-    
+      user{
+        userNum
+        userName
+      }    
     }
 }
 `;
@@ -27,6 +29,12 @@ query boardOne($boardSetNum:Int) {
     contents
     userNum
     date
+    user{
+      userNum
+      userId
+      userName
+
+    }
   }
 }
 `;
@@ -53,6 +61,19 @@ export const BOARD_DELETE = gql`
 mutation($boardSetNum:Int!) {
   boardDelete(boardOneInput:{
     boardSetNum:$boardSetNum
+  })
+}
+`;
+
+// 게시글 수정
+export const BOARD_UPDATE = gql`
+mutation($boardSetNum:Int!,$title:String!,$contents:String!) {
+  boardUpdate(boardUpdate:{
+    boardSetNum:$boardSetNum
+    data:{
+      title:$title
+      contents:$contents
+    }
   })
 }
 `;
