@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { BOARD_ALL } from "../graphql/board.gql";
+import { BOARD_ALL, SEARCH } from "../graphql/board.gql";
 import { Pagenation } from "../components/Pagenation";
 import { BoardTable } from "../components/BoardTable";
 import { Loading } from "../components/Loading";
@@ -11,35 +11,33 @@ const Board = () => {
   const [limit, setLimit] = useState(5); //페이지당 게시물 제한 수
   const [currentPage, setCurrentPage] = useState(1);
   const [searchWord, setSearchWord] = useState("");
+  const [checkSearch, setCheckSearch] = useState(false);
   const offset = (currentPage - 1) * limit; //현재 페이지 전까지의 게시물 수
 
   const { loading, error, data } = useQuery(BOARD_ALL, {
     variables: { currentPage: currentPage, limit: limit },
   });
-  const navigate = useNavigate();
+  const { data: search } = useQuery(SEARCH, {
+    variables: { searchWord: searchWord },
+  });
 
+  const navigate = useNavigate();
   useEffect(() => {
     if (!loading) {
-      // console.log(data);
-      // console.log(data.boardAll.length);
     }
-  }, [data, loading]);
+  }, [searchWord, loading, search]);
 
   if (loading) return <Loading />;
   if (error) return <Error />;
 
   // console.log("searchWord====", searchWord);
 
-  const Search = () => {
-    //   const title = data.boardAll.filter((item) => {
-    //     console.log("title====", item.title);
-    //     if (setSearchWord === title) {
-    //       console.log("data.boardAll.title===", item.title);
-    //     } else {
-    //       console.log("F");
-    //     }
-    //   });
+  const Search = (e) => {
+    console.log(search);
+    console.log("searchWord====", searchWord);
+    setCheckSearch(true);
   };
+
   const Logout = () => {
     sessionStorage.clear();
     console.log("로그아웃sessionStorage===", sessionStorage);
@@ -83,10 +81,14 @@ const Board = () => {
               <th>작성일</th>
             </tr>
           </thead>
-
           {data.boardAll.slice(offset, offset + limit).map((item, index) => {
             return (
-              <BoardTable board={item} index={index} key={item.boardNum} />
+              <BoardTable
+                board={item}
+                index={index}
+                key={item.boardNum}
+                searchWord={searchWord}
+              />
             );
           })}
         </table>

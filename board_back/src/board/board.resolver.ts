@@ -8,6 +8,7 @@ import { query } from 'express';
 import { BoardOutput } from './dto/board.output';
 import { BoardAllCount } from './dto/board-count.output';
 import { BoardAllInput } from './dto/board-all.input';
+import { BoardSearchInput } from './dto/board-search.input';
 
 @Resolver(() => Board)
 export class BoardResolver {
@@ -28,9 +29,9 @@ export class BoardResolver {
     return this.boardService.findAll(boardAllInput);
   }
   
-  @Query(() => String)
-  search(@Args('search') searchWoard: string) {
-    return this.boardService.search(searchWoard);
+  @Query(() => [Board], {name: 'search'})
+  search(@Args('search') boardSearchInput: BoardSearchInput) {
+    return this.boardService.search(boardSearchInput);
   }
 
   // @Query(() => BoardOutput, { name: 'boardAll' })

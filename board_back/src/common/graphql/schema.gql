@@ -21,7 +21,6 @@ type Board {
   contents: String!
   userNum: String!
   user: User!
-  department: User!
   date: DateTime!
   cnt: Float!
   fileNum: Float!
@@ -40,7 +39,7 @@ type File {
 type Query {
   boardOne(boardOneInput: BoardOneInput!): Board!
   boardAll(boardAllInput: BoardAllInput!): [Board!]!
-  search(search: String!): String!
+  search(search: BoardSearchInput!): [Board!]!
   userAll: [User!]!
   userOne(userOneInput: UserOneInput!): User!
   departmentAll: [Department!]!
@@ -55,6 +54,10 @@ input BoardOneInput {
 input BoardAllInput {
   currentPage: Int
   limit: Int!
+}
+
+input BoardSearchInput {
+  searchWord: String
 }
 
 input UserOneInput {

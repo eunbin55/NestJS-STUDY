@@ -6,6 +6,7 @@ import Board from "./pages/Board";
 import { BoardCreate } from "./pages/BoardCreate";
 import { BoardUpdate } from "./pages/BoardUpdate";
 import Login from "./pages/Login";
+import Test from "./pages/Test";
 // import Test from "./pages/Test";
 
 function Router(props) {
@@ -19,6 +20,7 @@ function Router(props) {
         <Route path="/login" element={<Login />} />
         <Route path="/detail/:boardNum" element={<BoardDetail />} />
         <Route path="/boardCreate" element={<BoardCreate />} />
+        <Route path="/test" element={<Test />} />
         <Route path="/detail/:boardNum/update" element={<BoardUpdate />} />
       </Routes>
     </BrowserRouter>

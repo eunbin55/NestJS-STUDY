@@ -32,16 +32,14 @@ export class Board {
   userNum: string;
 
   @ManyToOne(() => User, {
+    eager: true,
     cascade:true
   })
-  @JoinColumn([{ name: 'userNum' },{name:'deptCode'}])
+  @JoinColumn([{ name: 'userNum' }])
   @Field()
   user: User;
 
-  @JoinColumn([{name:'deptCode'}])
-  @Field()
-  department: User;
-
+ 
   @CreateDateColumn()
   @Field()
   date: Date;

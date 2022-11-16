@@ -7,4 +7,8 @@ export class BoardOneInput {
   @Column()
   @Field(() => Int, { nullable: true })
   boardSetNum: number;
+
+  // @Column()
+  // @Field(() => Int, { nullable: true })
+  // cnt: number;
 }

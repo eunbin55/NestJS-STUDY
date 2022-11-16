@@ -8,6 +8,7 @@ import { Entity, FindManyOptions, FindOneOptions, FindOptionsUtils, Like, Reposi
 import { BoardAllInput } from './dto/board-all.input';
 import { BoardAllCount } from './dto/board-count.output';
 import { BoardOneInput } from './dto/board-one.input';
+import { BoardSearchInput } from './dto/board-search.input';
 import { BoardOutput } from './dto/board.output';
 import { CreateBoardInput } from './dto/create-board.input';
 import { UpdateBoard } from './dto/update-board.input';
@@ -69,14 +70,14 @@ export class BoardService {
   // }
 
   async findOne({boardSetNum}: BoardOneInput) {
-    const boardOne = await this.boardRepository.findOne({ boardNum: boardSetNum }, {relations:['user']});
+    const boardOne = await this.boardRepository.findOne({ boardNum: boardSetNum},{relations:['user']});
     console.log(boardOne);
     return boardOne
   }
 
-  async search(searchWoard) {
+  async search({searchWord}: BoardSearchInput) {
     const result = await this.boardRepository.find({
-      where: { title: Like(`%${searchWoard}%`) }
+      where: [{ title: Like(`%${searchWord}%`) }, {contents: Like(`%${searchWord}%`)}]
     });
     console.log('result===========',result)
     return result;

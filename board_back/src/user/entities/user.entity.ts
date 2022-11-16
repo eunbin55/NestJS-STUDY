@@ -32,7 +32,9 @@ export class User {
   // @Field()
   deptCode: string;
 
-  @ManyToOne(() => Department)
+  @ManyToOne(() => Department, {
+    eager: true
+  })
   @JoinColumn({ name: 'deptCode' })
     @Field()
   department: Department;

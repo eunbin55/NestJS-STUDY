@@ -41,8 +41,8 @@ export const BoardDetail = () => {
         <div>{data.boardOne.title} </div>
         <div>작성자 :</div>
         <div>{data.boardOne.user.userName} </div>
-        {/* <div>부서명</div>
-        <p>{data?.boardOne.user.department.deptName} </p> */}
+        <div>부서명</div>
+        <div>{data.boardOne.user.department.deptName} </div>
         <div>작성일 :</div>
         <div>{formatDate.toLocaleString()} </div>
         <div>내용 :</div>

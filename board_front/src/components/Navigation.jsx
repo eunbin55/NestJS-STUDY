@@ -16,6 +16,9 @@ function Navigation() {
         <Link to="/login">Login</Link>
       </li>
       <li>
+        <Link to="/test">TEST</Link>
+      </li>
+      <li>
         <Link to="/board" onClick={loginCheck}>
           Board
         </Link>

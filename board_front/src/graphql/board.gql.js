@@ -33,7 +33,9 @@ query boardOne($boardSetNum:Int) {
       userNum
       userId
       userName
-
+      department{
+        deptName
+      }
     }
   }
 }
@@ -75,5 +77,23 @@ mutation($boardSetNum:Int!,$title:String!,$contents:String!) {
       contents:$contents
     }
   })
+}
+`;
+
+// 검색
+export const SEARCH = gql`
+query($searchWord:String!){
+  search(search:{
+    searchWord:$searchWord
+  }){
+    boardNum
+    title
+    contents
+    user{
+      userName
+      userNum
+      
+    }
+  }
 }
 `;
