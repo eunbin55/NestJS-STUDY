@@ -47,6 +47,8 @@ export const BoardDetail = () => {
         <div>{formatDate.toLocaleString()} </div>
         <div>내용 :</div>
         <div>{data.boardOne.contents} </div>
+        <div>조회수 :</div>
+        <div>{data.boardOne.cnt} </div>
       </div>
       {sessionStorage.getItem("inputId") === data.boardOne.user.userId ? (
         <div>

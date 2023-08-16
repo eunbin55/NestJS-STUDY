@@ -11,7 +11,7 @@ const Board = () => {
   const [limit, setLimit] = useState(5); //페이지당 게시물 제한 수
   const [currentPage, setCurrentPage] = useState(1);
   const [searchWord, setSearchWord] = useState("");
-  const [checkSearch, setCheckSearch] = useState(false);
+  const [searchData, setSearchData] = useState(false);
   const offset = (currentPage - 1) * limit; //현재 페이지 전까지의 게시물 수
 
   const { loading, error, data } = useQuery(BOARD_ALL, {
@@ -20,22 +20,24 @@ const Board = () => {
   const { data: search } = useQuery(SEARCH, {
     variables: { searchWord: searchWord },
   });
-
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!loading) {
-    }
-  }, [searchWord, loading, search]);
-
-  if (loading) return <Loading />;
-  if (error) return <Error />;
 
   // console.log("searchWord====", searchWord);
 
   const Search = (e) => {
-    console.log(search);
-    console.log("searchWord====", searchWord);
-    setCheckSearch(true);
+    if (search.search.length === 0) {
+      // console.log("검색결과가 없습니다");
+      alert("검색결과가 없습니다");
+      setSearchData(false);
+    } else {
+      console.log(search.search);
+      setSearchData(true);
+    }
+  };
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      Search();
+    }
   };
 
   const Logout = () => {
@@ -43,6 +45,16 @@ const Board = () => {
     console.log("로그아웃sessionStorage===", sessionStorage);
     navigate("/login");
   };
+
+  useEffect(() => {
+    if (!loading) {
+    }
+    if (search) {
+    }
+  }, [searchWord, loading, search]);
+
+  if (loading) return <Loading />;
+  if (error) return <Error />;
 
   return (
     <div className="boardMain">
@@ -59,6 +71,7 @@ const Board = () => {
           >
             <option value="5">5</option>
             <option value="10">10</option>
+            <option value="15">15</option>
           </select>
         </div>
         {/* 검색 */}
@@ -68,6 +81,7 @@ const Board = () => {
             value={searchWord}
             placeholder="검색어를 입력하세요"
             onChange={(e) => setSearchWord(e.target.value)}
+            onKeyPress={onKeyPress}
           />
           <button onClick={Search}>검색</button>
         </div>
@@ -79,27 +93,38 @@ const Board = () => {
               <th>제목</th>
               <th>작성자</th>
               <th>작성일</th>
+              <th>조회수</th>
             </tr>
           </thead>
-          {data.boardAll.slice(offset, offset + limit).map((item, index) => {
-            return (
-              <BoardTable
-                board={item}
-                index={index}
-                key={item.boardNum}
-                searchWord={searchWord}
-              />
-            );
-          })}
+          {searchData
+            ? search?.search.map((search, index) => (
+                <BoardTable
+                  board={search}
+                  index={index}
+                  key={search.boardNum}
+                />
+              ))
+            : data.boardAll.slice(offset, offset + limit).map((item, index) => {
+                return (
+                  <BoardTable
+                    board={item}
+                    index={index}
+                    key={item.boardNum}
+                    // searchWord={searchWord}
+                  />
+                );
+              })}
         </table>
         {/* 페이지네이션 */}
-        <Pagenation
-          total={data.boardAll.length}
-          // total={totalCount}
-          limit={limit}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+        {searchData ? null : (
+          <Pagenation
+            total={data.boardAll.length}
+            // total={totalCount}
+            limit={limit}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
         <button onClick={() => navigate("/boardCreate")}>글작성</button>
       </div>
     </div>

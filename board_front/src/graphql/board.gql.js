@@ -10,6 +10,7 @@ query boardAll($limit:Int!, $currentPage:Int!) {
       boardNum
       title
       date
+      cnt
       user{
         userNum
         userName
@@ -29,6 +30,7 @@ query boardOne($boardSetNum:Int) {
     contents
     userNum
     date
+    cnt
     user{
       userNum
       userId
@@ -89,6 +91,8 @@ query($searchWord:String!){
     boardNum
     title
     contents
+    date
+    cnt
     user{
       userName
       userNum

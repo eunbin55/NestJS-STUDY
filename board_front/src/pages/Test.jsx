@@ -1,7 +1,9 @@
-import React, { useCallback, useState } from "react";
-import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/react-hooks";
-import Login from "./Login";
+import React, { useState } from "react";
+import { gql, useMutation, useQuery } from "@apollo/react-hooks";
+// import Login from "./Login";
 import { SEARCH } from "../graphql/board.gql";
+import { useRef } from "react";
+import { useEffect } from "react";
 
 // 게시판 전체 목록 조회
 export const BOARD_ALL = gql`
@@ -43,7 +45,8 @@ const Test = () => {
   const [inputId, setInputId] = useState("");
   const [login] = useMutation(USER_CHECK, { variables: { inputId } });
   const [searchWord, setSearchWord] = useState("");
-  console.log(inputId);
+  const searchRef = useRef(null);
+  // console.log(inputId);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -58,16 +61,16 @@ const Test = () => {
   });
 
   const Search = () => {
+    setSearchWord(searchRef.current.value);
     console.log(search);
     console.log("searchWord====", searchWord);
   };
-  // const [
-  //   idCheck, {data}
-  // ] = useLazyQuery(USER_ALL);
-  // const searchText = (text: string) => {
-  //   console.log(text);
-  //   idCheck();
-  // };
+
+  // useEffect(() => {
+  //   if (search) {
+  //     Search();
+  //   }
+  // }, [searchWord, search]);
 
   return (
     <>
@@ -84,15 +87,16 @@ const Test = () => {
       <div className="search">
         <input
           type="text"
-          value={searchWord}
+          ref={searchRef}
+          // value={searchWord}
           placeholder="검색어를 입력하세요"
-          onChange={(e) => setSearchWord(e.target.value)}
+          // onChange={(e) => setSearchWord(e.target.value)}
         />
         <button onClick={Search}>검색</button>
       </div>
-      {search.search.map((item) => {
+      {/* {search.search.map((item) => {
         return <div>{item.boardNum}</div>;
-      })}
+      })} */}
     </>
   );
 

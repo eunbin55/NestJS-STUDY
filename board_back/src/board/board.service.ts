@@ -71,13 +71,16 @@ export class BoardService {
 
   async findOne({boardSetNum}: BoardOneInput) {
     const boardOne = await this.boardRepository.findOne({ boardNum: boardSetNum},{relations:['user']});
+    boardOne.cnt += 1;
+    await this.boardRepository.save(boardOne);
     console.log(boardOne);
     return boardOne
   }
 
   async search({searchWord}: BoardSearchInput) {
     const result = await this.boardRepository.find({
-      where: [{ title: Like(`%${searchWord}%`) }, {contents: Like(`%${searchWord}%`)}]
+      where: [{ title: Like(`%${searchWord}%`) }, { contents: Like(`%${searchWord}%`) }],
+      order: {date :'DESC'} 
     });
     console.log('result===========',result)
     return result;

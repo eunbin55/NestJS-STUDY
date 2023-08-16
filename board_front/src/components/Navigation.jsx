@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 console.log("sessionStorage=====", sessionStorage);
 function Navigation() {
@@ -15,9 +15,9 @@ function Navigation() {
       <li>
         <Link to="/login">Login</Link>
       </li>
-      <li>
+      {/* <li>
         <Link to="/test">TEST</Link>
-      </li>
+      </li> */}
       <li>
         <Link to="/board" onClick={loginCheck}>
           Board
